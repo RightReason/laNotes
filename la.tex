@@ -1,0 +1,152 @@
+\documentclass[12pt,a4paper,oneside]{book}
+\usepackage{hyperref}
+\usepackage{indentfirst}
+\usepackage{mdframed}
+\usepackage[english]{babel}
+\usepackage{blindtext}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\newcommand\xqed[1]{%
+  \leavevmode\unskip\penalty9999 \hbox{}\nobreak\hfill
+  \quad\hbox{#1}}
+\newcommand\demo{\xqed{$\triangle$}}
+
+\pagestyle{headings}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[chapter]
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+
+\title{Linear Algebra}
+\author{}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\chapter*{Preface}
+\addcontentsline{toc}{chapter}{Preface}
+
+This document is essentially a summary of the main results from \emph{Linear Algebra: Ideas and Applications, Fourth Edition} by Richard C. Penney in \LaTeX.
+
+The reason I selected this book to summarize the main results of linear algebra is twofold: first of all, this is the book that was used in my undergraduate education when I took linear algebra, so I am used to its style. Secondly, the subject is presented rigorously in Penney's book, but not in a dry, terse manner; there's a fair amount of examples, and proofs are constructed carefully without the confusion of missing steps.
+
+Topics that are in Penney's book but that aren't usually covered in a first introductory rigorous course on linear algebra will not be discussed here; these excluded topics include the various computer projects and applications, least squares, and numerical techniques to compute eigenvalues.
+
+Definitions end with a $\triangle$, and proofs of theorems, propositions and lemmas 
+\chapter{Systems of linear equations}
+
+\section{The vector space of $m\times n$ matrices}
+A matrix is a rectangular array of numbers arranged into rows and columns. A matrix has \textbf{size} $m\times n$ if it has $m$ rows and $n$ columns.
+
+The following are examples of matrices 
+
+\begin{equation*}
+A = \begin{pmatrix} 2 & 0 & 1 \\ -1 & 3 & 9 \\ 5 & 15 & -7\end{pmatrix}
+\end{equation*}
+
+\begin{equation*}
+B = \begin{pmatrix} 0 & 7 & 1 \\ -2 & 5 & 10\end{pmatrix}
+\end{equation*}
+
+\begin{equation*}
+C = \begin{pmatrix} 1 & -2 \\ 0 & 7 \\ 6 & 6\end{pmatrix}
+\end{equation*}
+
+We note that matrices are usually denoted by an uppercase Latin letter. If the matrix has an equal number of rows and columns (such as matrix $A$), we say that the matrix is \textbf{square}.
+
+\begin{definition}
+The set of all $m\times n$ matrices is denoted $M(m,n)$.
+\demo  
+\end{definition}
+
+Each row of an $m\times n$ matrix may be thought of as a $1 \times n$ matrix. Similarly, each column of an $m\times n$ matrix may be thought of as an $m \times 1$ matrix. Any matrix with only one row is called a \textbf{row vector}. Similarly, a matrix with only one column is called a \textbf{column vector}.
+
+The entry in the $i$th row and $j$th column of the matrix $A$ may be denoted by either $A_{ij}$ or $a_{ij}$. $a_{ij}$ is referred to as the ``$(i,j)$ entry of $A$''. The notation $A = [a_{ij}]$ is also used, with the meaning ``$A$ is the matrix whose $(i,j)$ entry is $a_{ij}$.''
+
+If $A$ and $B$ are $m \times n$ matrices, then $A + B$ is the $m \times n$ matrix defined by
+
+\begin{equation}
+A + B = [a_{ij}] + [b_{ij}] = [a_{ij} + b_{ij}]
+\end{equation}
+
+that is, each entry in the $(i,j)$ position of each matrix is added.
+
+For example,
+
+
+\begin{equation}\label{mat1}
+A = \begin{pmatrix} 2 & 0 & 1 \\ -1 & 3 & 9 \\ 5 & 15 & -7\end{pmatrix}, ~ 
+B = \begin{pmatrix} -5 & 2 & 3 \\ 0 & 3 & -2 \\ -1 & 8 & -6\end{pmatrix} \Rightarrow
+A + B = \begin{pmatrix} -3 & 2 & 4 \\ -1 & 6 & 7 \\ 4 & 23 & -13\end{pmatrix} 
+\end{equation}
+
+Addition of matrices of different sizes is not defined.
+
+If $c$ is a number or scalar and $A = [a_{ij}]$ is an $m \times n$ matrix, we define \textbf{scalar multiplication} as
+
+\begin{equation}
+cA = c[a_{ij}] = [ca_{ij}] = [a_{ij}]c = Ac
+\end{equation}
+
+Subtraction of matrices is defined analogously to matrix addition.
+
+\subsection{The space $\mathbb{R}^n$}
+
+A $2 \times 1$ column vector $X = \begin{pmatrix} x \\ y\end{pmatrix}$ may be thought of as a point in the plane with coordinates $(x, y)$. $X$ may also be thought of as the vector from the origin to $(x, y)$. When thought of as points in two-dimensional space, the set of $2 \times 1$ matrices will be denoted by $\mathbb{R}^2$.
+
+Like with matrices, addition/subtraction of vectors and multiplication of vectors by scalars can be readily defined; in particular, if $X$ and $Y$ are vectors with the same initial point, then $X + Y$ is the diagonal
+of the parallelogram with sides $X$ and $Y$ beginning at the same initial point. If $c > 0$, then $cX$ is a vector with the same direction as that of $X$ but whose length has been stretched or contracted by a factor of $c$. If $c < 0$, then the direction of the vector is reversed.
+
+All of this also applies to $3 \times 1$ matrices such as 
+
+\begin{equation*}
+\begin{pmatrix} x \\ y \\ z\end{pmatrix}
+\end{equation*}
+
+This matrix may be thought to represent either the point $(x,y,z)$ in three-dimensional space or the vector from
+$(0,0,0)$ to $(x,y,z)$. Matrix addition and scalar multiplication can be defined as before for the two-dimensional case. When thought of as points in three-dimensional space, the set of $3 \times 1$ matrices will be denoted by $\mathbb{R}^3$.
+
+This can be generalized to $n$ dimensions.
+
+\begin{definition}
+$\mathbb{R}^n$ is the set of all $n \times 1$ matrices.
+\demo  
+\end{definition}
+
+\subsection{Linear combinations and linear dependence}
+
+Consider the matrix $C$, defined as the sum of $A$ and $B$ of \ref{mat1}.
+
+\begin{equation}
+C = A + B = \begin{pmatrix} -3 & 2 & 4 \\ -1 & 6 & 7 \\ 4 & 23 & -13\end{pmatrix} 
+\end{equation}
+
+The matrix C depends on $A$ and $B$; any change in either $A$ or $B$ means $C$ will generally change. This leads to the following concept.
+
+\begin{definition}
+Let $S = \{A_1,A_2,\ldots,A_k\}$ be a set of elements of $M(m,n)$. An element $C$ of $M(m,n)$ is \textbf{linearly dependent on} $S$ if there are scalars $b_i$ such that
+
+\begin{equation}
+C = b_1 A_1 + b_2 A_2 + \cdots + b_k A_k
+\end{equation}
+
+We also say that ``$C$ is a linear combination of the $A_i$''. 
+\demo  
+\end{definition}
+
+
+
+\chapter{Linear independence and dimension}
+\chapter{Linear transformations}
+\end{document}
